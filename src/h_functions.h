@@ -18,14 +18,14 @@ FILE *f;
 block newBlock(dimentions dimen);
 
 // extra
-char *gnl(int fd);
+char *gnl();
 void freeSplitLine(char **split);
-int _puts(int fd, const char *str);
+int _puts(const char *str);
 void freeBlocks(char *map, char *piece);
 
 // read 
-players setPlayers(int fd);
-block getBlock(int fd, int type);
+players setPlayers();
+block getBlock(int type);
 
 //peice update
 block trimPiece(block piece);
