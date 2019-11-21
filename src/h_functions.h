@@ -1,56 +1,66 @@
-#ifndef HEADER_H
-#define HEADER_H
-#include <stdio.h>
-#include <stdlib.h>
-#include <fcntl.h>
-#include <unistd.h>
-#include "../Lib/42_lib/includes/libft.h"
-#include <stdbool.h>
-#define POS(x, y, width) ((x) + (y) * (width)) 
-#define MAP 4
-#define PIECE 0
-#define ENEMY 1
-#define PLAYER 0
-#include "h_structs.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   h_functions.h                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ncollie <ncollie@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/11/19 23:06:37 by ncollie           #+#    #+#             */
+/*   Updated: 2019/11/19 23:41:33 by ncollie          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-FILE *f;
+#ifndef H_FUNCTIONS_H
+# define H_FUNCTIONS_H
+# include <stdio.h>
+# include <stdlib.h>
+# include <fcntl.h>
+# include <unistd.h>
+# include "../Lib/42_lib/includes/libft.h"
+# include <stdbool.h>
+# define POS(x, y, width) ((x) + (y) * (width))
+# define MAP 4
+# define PIECE 0
+# define ENEMY 1
+# define PLAYER 0
+# include "h_structs.h"
 
-block newBlock(dimentions dimen);
+t_block		new_block(t_dimentions dimen);
 
-// extra
-char *gnl();
-void freeSplitLine(char **split);
-int _puts(const char *str);
-void freeBlocks(char *map, char *piece);
+/*
+** extra
+*/
+char		*gnl();
+void		free_split_line(char **split);
+void		free_blocks(char *map, char *piece);
 
-// read 
-players setPlayers();
-block getBlock(int type);
+/*
+** read
+*/
+t_players	set_players();
+t_block		get_block(int type);
 
-//peice update
-block trimPiece(block piece);
-//piece placement
-cordinate getBestCordinate(block map, block piece);
-//
-void printPoint(int x, int y);
+/*
+** peice update
+*/
+t_block		trim_piece(t_block piece);
 
-cordinate deQueue(queue *q);
-void addQueue(queue *q, cordinate cord);
-bool isQueueEmpty(queue *q);
-queue *initQueue();
-node *newNode(int x, int y);
+/*
+** heatmap
+*/
 
-//heatmap
-void initQueFromMap(block map, queue *Q1, block visited, players p);
-void BFS_HeatMap(groupedMaps maps, queue *Q1, queue *Q2, int level);
+t_cordinate	get_best_cordinate(t_block map, t_block piece);
+void		print_point(int x, int y);
 
-//testing
-void printPiece(block p);
-void printPieceF(block p);
-void printPieceFD(int fd, block p);
-void printQueue(queue *q);
-void queTest(void);
-void printPieceHidden(block p);
-void printPieceHiddenF(block p);
+t_cordinate	de_queue(t_queue *q);
+void		add_queue(t_queue *q, t_cordinate cord);
+bool		is_queue_empty(t_queue *q);
+t_queue		*init_queue();
+t_node		*new_node(int x, int y);
+/*
+** heatmap
+*/
+void		initque(t_block map, t_queue *q1, t_block visited, t_players p);
+void		bfs_heat_map(t_bothmaps maps, t_queue *q1, t_queue *q2, int level);
 
 #endif

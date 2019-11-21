@@ -1,31 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   0_main.c                                           :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ncollie <ncollie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 22:00:10 by ncollie           #+#    #+#             */
-/*   Updated: 2019/11/18 22:24:37 by ncollie          ###   ########.fr       */
+/*   Updated: 2019/11/19 23:41:03 by ncollie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "h_functions.h"
 
-void	gen_heat_map(block map, players p)
+void	gen_heat_map(t_block map, t_players p)
 {
-	block		visited_map;
-	queue		*q1;
-	queue		*q2;
-	groupedMaps	maps;
+	t_block			visited_map;
+	t_queue			*q1;
+	t_queue			*q2;
+	t_bothmaps		maps;
 
-	q1 = initQueue();
-	q2 = initQueue();
-	visited_map = newBlock(map.dimen);
+	q1 = init_queue();
+	q2 = init_queue();
+	visited_map = new_block(map.dimen);
 	maps.map = map;
 	maps.visited = visited_map;
-	initQueFromMap(map, q1, visited_map, p);
-	BFS_HeatMap(maps, q1, q2, 2);
+	initque(map, q1, visited_map, p);
+	bfs_heat_map(maps, q1, q2, 2);
 	free(visited_map.body);
 	free(q1);
 	free(q2);
@@ -33,21 +33,20 @@ void	gen_heat_map(block map, players p)
 
 int		main(void)
 {
-	block		map;
-	block		piece;
-	players		p;
-	cordinate	cord;
+	t_block		map;
+	t_block		piece;
+	t_players	p;
+	t_cordinate	cord;
 
-	p = setPlayers();
+	p = set_players();
 	while (1)
 	{
-		map = getBlock(MAP);
-		piece = getBlock(PIECE);
-		piece = trimPiece(piece);
-		genHeatMap(map, p);
-		printPieceHiddenF(map);
-		cord = getBestCordinate(map, piece);
-		freeBlocks(map.body, piece.body);
-		printPoint(cord.x, cord.y);
+		map = get_block(MAP);
+		piece = get_block(PIECE);
+		piece = trim_piece(piece);
+		gen_heat_map(map, p);
+		cord = get_best_cordinate(map, piece);
+		free_blocks(map.body, piece.body);
+		print_point(cord.x, cord.y);
 	}
 }
